@@ -57,6 +57,8 @@ int main()
         0, 1, 3,
         1, 2, 3
     };
+
+    // 设置顶点属性组对象、顶点属性、索引
     GLuint VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
