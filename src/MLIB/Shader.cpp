@@ -100,5 +100,5 @@ void Shader::Use()
 
 GLuint Shader::GetProgram()
 {
-	return GLuint();
+	return Program;
 }

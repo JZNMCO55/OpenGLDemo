@@ -17,7 +17,7 @@ public:
 	void Use();
 
 	GLuint GetProgram();
-private:
+public:
 	GLuint Program;
 
 };
