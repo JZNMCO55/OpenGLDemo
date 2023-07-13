@@ -13,21 +13,24 @@ public:
 	glm::mat4 GetLookAtMatrix();
 	void DoMovement(GLfloat deltaTime);
 	void SetKeysStatus(GLuint key, GLboolean status);
-	void SetCurrentPos(int xpos,int ypos);
+	void SetCurrentPos(int xpos, int ypos);
+	void SetScroll(double xoffset, double yoffset);
 
-private:
-	void MouseCallBack(GLFWwindow* window,double xops, double ypos);
+	glm::vec3 GetCameraPos();
+	glm::vec3 GetCameraFront();
+	GLfloat GetAspect();
 private:
 	GLboolean m_isFirstMouse{ true }; // 是否是第一次使用鼠标
 	GLfloat m_pitch{ 0 }; // 仰角
 	GLfloat m_yaw{ 0 }; // 偏移角
 	GLfloat m_lastXPos{ 0 }; // 上次的x坐标
 	GLfloat m_lastYPos{ 0 }; // 上次的y坐标
+	GLfloat m_aspect{ 45.f }; // 缩放大小
 
 	glm::vec3 m_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f); // 摄像机的坐标
 	glm::vec3 m_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // 摄像机的方向
 	glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); // 摄像机的向上
-	
+
 	GLboolean m_keys[1024] = { false }; // 按键的状态
 };
 
