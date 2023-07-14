@@ -89,6 +89,11 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 
 }
 
+Shader::Shader()
+{
+
+}
+
 Shader::~Shader()
 {
 }
@@ -101,4 +106,29 @@ void Shader::Use()
 GLuint Shader::GetProgram()
 {
 	return GLuint();
+}
+
+void Shader::SetInput(GLint num, const char* str)
+{
+	glUniform1i(glGetUniformLocation(Program, str), num);
+}
+
+void Shader::SetInput(GLfloat value, const char* str)
+{
+	glUniform1f(glGetUniformLocation(Program, str), value);
+}
+
+void Shader::SetInput(glm::vec3 vector3f, const char* str)
+{
+	glUniform3f(glGetUniformLocation(Program, str), vector3f[0], vector3f[1], vector3f[2]);
+}
+
+void Shader::SetInput(glm::vec2 vector2f, const char* str)
+{
+	glUniform2f(glGetUniformLocation(Program, str), vector2f[0], vector2f[1]);
+}
+
+void Shader::SetInput(glm::mat4 matrix4f, const char* str)
+{
+	glUniformMatrix4fv(glGetUniformLocation(Program, str), 1, GL_FALSE, glm::value_ptr(matrix4f));
 }
