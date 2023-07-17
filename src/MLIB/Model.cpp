@@ -3,6 +3,7 @@ extern "C" {
 }
 #include "Model.h"
 #include "Shader.h"
+#include "Iconv/iconv.h"
 
 Model::Model(GLchar* path)
 {
@@ -16,11 +17,10 @@ Model::~Model()
 
 void Model::Draw(Shader shader)
 {
-	//for (GLuint i = 0; i < m_meshes.size(); ++i)
-	//{
-	//	this->m_meshes[i].Draw(shader);
-	//}
-	this->m_meshes[0].Draw(shader);
+	for (GLuint i = 0; i < m_meshes.size(); ++i)
+	{
+		this->m_meshes[i].Draw(shader);
+	}
 }
 
 void Model::LoadModel(string path)
@@ -157,14 +157,27 @@ GLuint Model::TextureFromFile(std::string path, std::string dirctory)
 	filename = m_directory + '\\' + filename;
 	GLuint textureID;
 	glGenTextures(1, &textureID);
-	int width, height;
-	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+	int width, height, nComponent;
+	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &nComponent, SOIL_LOAD_RGB);
 
 	if (image)
 	{
+		GLenum format = GL_RGBA;
+		if (1 == nComponent)
+		{
+			format = GL_RED;
+		}
+		else if (3 == nComponent)
+		{
+			format = GL_RGB;
+		}
+		else if (4 == nComponent)
+		{
+			format = GL_RGBA;
+		}
 		// °ó¶¨id
 		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, image);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		// ÌùÍ¼·½Ê½

@@ -6,9 +6,7 @@
 #include <GLM/gtc/matrix_transform.hpp>
 #include <GLEW/glew.h>
 #include <GLUT/glut.h>
-#include <Assimp/Importer.hpp>
-#include <Assimp/scene.h>
-#include <Assimp/postprocess.h>
+
 
 #include <iostream>
 #include <cstring>
@@ -41,9 +39,11 @@ public:
 
 	~Mesh();
 
-	void Draw(Shader shader);
+	void Draw(Shader& shader);
 
 	void PrintSelf();
+
+	double* GetBox();
 
 private:
 	void SetUpMesh();
@@ -55,6 +55,7 @@ public:
 	GLuint VAO;
 private:
 	GLuint VBO, EBO;
+	double box[6];
 
 };
 

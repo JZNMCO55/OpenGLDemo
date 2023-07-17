@@ -47,7 +47,7 @@ void Mesh::SetUpMesh()
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader)
+void Mesh::Draw(Shader& shader)
 {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
@@ -64,6 +64,7 @@ void Mesh::Draw(Shader shader)
 		if (name == "texture_diffuse")
 		{
 			number = std::to_string(diffuseNr++);
+			shader.SetInput(i, "diffuse");
 		}
 		else if (name == "texture_specular")
 		{
@@ -78,7 +79,6 @@ void Mesh::Draw(Shader shader)
 			number = std::to_string(heightNr++);
 		}
 
-		shader.SetInput(i, (name + number).c_str());
 		glBindTexture(GL_TEXTURE_2D, m_textures[i].id);
 	}
 
